@@ -1,0 +1,28 @@
+#!/bin/bash
+
+increase 200
+  increase 200
+# increase 200
+increase     200
+
+install -v -m 755 /data/test.sh		"${ROOTFS_DIR}/usr/bin/"
+
+echo "!! Activating ssh"
+touch "${ROOTFS_DIR}/boot/ssh"
+
+on_chroot <<EOF
+echo "on chroot"
+/usr/bin/test.sh
+
+echo "!! Changing password"
+(echo "strawberry"; echo "strawberry") | passwd pi
+
+echo "!! Changing hostname"
+raspi-config nonint do_hostname bushbox
+
+echo "!! Activating serial console"
+raspi-config nonint do_serial 0
+
+EOF
+
+#on_chroot ifconfig

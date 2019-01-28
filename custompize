@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+if [ "$#" -lt 3 ]; then
+  echo "Usage: $0 Pifile input.img output.img [data-dir]"
+  exit 1
+fi
+
+realpath() {
+    [[ $1 = /* ]] && echo "$1" || echo "$PWD/${1#./}"
+}
+DATA=""
+if [ "$#" -gt 3 ]; then
+  DATA="-v `realpath $4`:/data"
+  echo "Using data directory $4"
+fi
+touch `realpath $3`
+docker run -it --rm --privileged \
+  -v `realpath $1`:/Pifile \
+  -v `realpath $2`:/input.img \
+  -v `realpath $3`:/output.img \
+  $DATA \
+  "${@:5}" \
+  custompize

@@ -1,9 +1,6 @@
 #!/bin/bash
 
 increase 200
-  increase 200
-# increase 200
-increase     200
 
 install -v -m 755 /data/test.sh		"${ROOTFS_DIR}/usr/bin/"
 

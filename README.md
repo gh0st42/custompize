@@ -52,7 +52,7 @@ echo "on chroot"
 apt-get update
 apt-get -y dist-upgrade
 
-(echo "!! Changing password"
+echo "!! Changing password"
 (echo "strawberry"; echo "strawberry") | passwd pi
 
 echo "!! Changing hostname"
